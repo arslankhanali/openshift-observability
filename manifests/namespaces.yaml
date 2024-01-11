@@ -1,0 +1,15 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: bookinfo
+  annotations:
+    argocd.argoproj.io/sync-wave: '-100'
+
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: bookinfo-mesh
+  annotations:
+    argocd.argoproj.io/sync-wave: '-100'
