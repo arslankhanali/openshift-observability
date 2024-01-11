@@ -1,0 +1,27 @@
+---
+# Example ClusterRole for patching servicemeshcontrolplanes in maistra.io API group
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: patch-servicemeshcontrolplanes
+rules:
+- apiGroups:
+  - maistra.io
+  resources:
+  - servicemeshcontrolplanes
+  verbs:
+  - patch
+---
+# Example ClusterRoleBinding to bind the ClusterRole to the ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: patch-servicemeshcontrolplanes-binding
+subjects:
+- kind: ServiceAccount
+  name: openshift-gitops-argocd-application-controller
+  namespace: openshift-gitops
+roleRef:
+  kind: ClusterRole
+  name: patch-servicemeshcontrolplanes
+  apiGroup: rbac.authorization.k8s.io
