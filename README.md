@@ -11,7 +11,7 @@ Tested on OpenShift 4.14
 4. Application is in bookinfo namespace
 5. Once deployed refresh producpage
    1. Get routes (App/Kiali/Jaeger) from `bookinfo-mesh` namespace
-      1. Go to just navigate to `topology` in `Developer View`
+      1. Navigate to `topology` in `Developer View`
    2. For App
       1. Route is istio-ingressgateway
       2. Use http instead of https
@@ -35,11 +35,12 @@ Tested on OpenShift 4.14
 
 ## Tempo
 1. Make sure ODF is operator is installed properly. We need to use s3 storage
-2. Deploy tempo operator
-3. Deploy ObjectBucketClaim
-4. Run tempo-createsecret
-5. Deploy tempoStack
-6. Deploy tempo Job to create traces
+2. All files are in Tempo folder
+3. Deploy tempo operator yaml
+4. Deploy ObjectBucketClaim yaml
+5. Run tempo-createsecret bash script
+6. Deploy tempoStack yaml
+7. Deploy tempo Job yaml to create traces
    1. View Traces in Jaeger dashboard provided by Tempo
 
 
