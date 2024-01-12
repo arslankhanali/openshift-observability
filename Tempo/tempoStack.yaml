@@ -1,0 +1,113 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: tracing-system
+  annotations:
+    argocd.argoproj.io/sync-wave: '-100'
+# ---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: s3-secret
+#   namespace: tracing-system
+# type: Opaque
+# data:
+#   access_key_id: <base64_encoded_AWS_ACCESS_KEY_ID>
+#   access_key_secret: <base64_encoded_AWS_SECRET_ACCESS_KEY>
+#   endpoint: <base64_encoded_S3_ENDPOINT>
+#   bucket: <base64_encoded_BUCKET_NAME>
+
+---
+apiVersion: tempo.grafana.com/v1alpha1
+kind: TempoStack
+metadata:
+  name: tempostack
+  namespace: tracing-system
+spec:
+  resources:
+    total:
+      limits:
+        cpu: 2000m
+        memory: 2Gi
+  template:
+    queryFrontend:
+      jaegerQuery:
+        enabled: true
+        ingress:
+          route:
+            termination: edge
+          type: route
+  storage:
+    secret:
+      type: s3
+      name: s3-secret
+  storageSize: 10Gi
+
+
+
+# AWS_ACCESS_KEY_ID=$(oc get secret tempo-bucket -n tracing-system -o json | jq -r '.data.AWS_ACCESS_KEY_ID' | base64 -d)
+# AWS_SECRET_ACCESS_KEY=$(oc get secret tempo-bucket -n tracing-system -o json | jq -r '.data.AWS_SECRET_ACCESS_KEY' | base64 -d)
+# ENDPOINT="http://$(oc get route -n openshift-storage s3 -ojsonpath={.spec.host})"
+# BUCKETNAME=$(oc get cm tempo-bucket -n tracing-system -ojsonpath={.data.BUCKET_NAME})
+
+# oc -n tracing-system create secret generic s3-secret --from-literal=access_key_id=$AWS_ACCESS_KEY_ID --from-literal=access_key_secret=$AWS_SECRET_ACCESS_KEY --from-literal=endpoint=$ENDPOINT --from-literal=bucket=$BUCKETNAME
+
+
+# apiVersion: tempo.grafana.com/v1alpha1
+# kind: TempoStack
+# metadata:
+#   labels:
+#     app.kubernetes.io/managed-by: tempo-operator
+#     tempo.grafana.com/distribution: openshift
+#   name: tempostack
+#   namespace: tracing-system
+# spec:
+#   limits:
+#     global:
+#       query:
+#         maxSearchDuration: 0s
+#   managementState: Managed
+#   observability:
+#     tracing:
+#       jaeger_agent_endpoint: localhost:6831
+#   replicationFactor: 1
+#   resources:
+#     total:
+#       limits:
+#         cpu: "2"
+#         memory: 2Gi
+#   retention:
+#     global:
+#       traces: 48h0m0s
+#   search:
+#     defaultResultLimit: 20
+#     maxDuration: 0s
+#   serviceAccount: tempo-tempostack
+#   storage:
+#     secret:
+#       name: s3-secret
+#       type: s3
+#   storageSize: 10Gi
+#   template:
+#     distributor:
+#       component:
+#         replicas: 1
+#       tls:
+#         enabled: false
+#     gateway:
+#       enabled: false
+#     ingester:
+#       replicas: 1
+#     queryFrontend:
+#       jaegerQuery:
+#         enabled: true
+#         ingress:
+#           route:
+#             termination: edge
+#           type: route
+#         monitorTab:
+#           enabled: false
+#           prometheusEndpoint: ""
+
+

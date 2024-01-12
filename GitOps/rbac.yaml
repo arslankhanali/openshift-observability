@@ -9,8 +9,14 @@ rules:
   - maistra.io
   resources:
   - servicemeshcontrolplanes
+  - servicemeshmembers
   verbs:
   - patch
+  - get
+  - list
+  - watch
+  - update
+  - delete
 ---
 # Example ClusterRoleBinding to bind the ClusterRole to the ServiceAccount
 apiVersion: rbac.authorization.k8s.io/v1
