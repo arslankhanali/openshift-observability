@@ -27,6 +27,9 @@ Tested on OpenShift 4.14
       2. NameSpace: Bookinfo
       3. Type: Deployment
 
+#### opentelemetry demo
+1.  Run demo.sh in opentelemetry folder
+
 
 ## GitOps
 1. Manifests to install GitOps operator

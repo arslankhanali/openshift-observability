@@ -38,9 +38,17 @@ helm uninstall my-otel-demo open-telemetry/opentelemetry-demo
   Jaeger UI            http://localhost:8080/jaeger/ui/
 
 ```
-
+# ERRORS
 ### Grafana error about 
 There is an error for grafana deployment regarding security context
 > Fix
 Go to grafana deployment yaml and delete lines regarding 412 ID etc. there are 4/5 lines  
 Then restart the deployment. Grafana dashboard should start appearing.
+
+### Cluster role and Role binding already presenty
+>Fix
+Delete that role and rolebinding
+
+### chart delpoys but no UI and services pod dont start
+>Fix
+You are probably running on OCP and need to run extra commands like giving anyuid scc to the service account.
