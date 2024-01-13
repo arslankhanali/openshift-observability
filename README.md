@@ -1,11 +1,11 @@
 # openshift-observability
 
-### Env
+## Env
 Tested on OpenShift 4.14
 
-## Demo
+## Demo for service mesh
 #### Distributed Tracing
-1. All required manifests are in demo folder
+1. All required manifests are in servicemesh folder
 2. Jaeger and Kali are deployed as part of Service Mesh
 3. Control Plane(Istio, Kiali, Jaeger) is in bookinfo-mesh namespace 
 4. Application is in bookinfo namespace
@@ -27,14 +27,12 @@ Tested on OpenShift 4.14
       2. NameSpace: Bookinfo
       3. Type: Deployment
 
-#### opentelemetry demo
+## opentelemetry demo
 1.  Run demo.sh in opentelemetry folder
 
 
 ## GitOps
 1. Manifests to install GitOps operator
-
-
 
 ## Tempo
 1. Make sure ODF is operator is installed properly. We need to use s3 storage
@@ -47,6 +45,6 @@ Tested on OpenShift 4.14
    1. View Traces in Jaeger dashboard provided by Tempo
 
 
-### Known Issues
+# Known Issues
 1. istio-ServiceMeshMember.yaml manifest gives errors when deployed using gitops.
    1. Permissions need to be fixed.
