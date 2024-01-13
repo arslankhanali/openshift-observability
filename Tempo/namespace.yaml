@@ -1,0 +1,9 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: tracing-system
+  annotations:
+    argocd.argoproj.io/sync-wave: '-100'
+
+---

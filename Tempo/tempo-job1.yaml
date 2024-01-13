@@ -3,7 +3,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: tracegen
-  namespace: tracing-system
+  namespace: bookinfo
 spec:
   template:
     spec:
@@ -13,10 +13,10 @@ spec:
           command:
             - "./tracegen"
           args:
-            - -otlp-endpoint=tempo-tempostack-distributor:4317
+            - -otlp-endpoint=tempo-tempostack-distributor.tracing-system.svc.cluster.local:4317
             - -otlp-insecure
-            - -duration=10s
-            - -workers=30
+            - -duration=60s
+            - -workers=1
       restartPolicy: Never
-  backoffLimit: 10
+  backoffLimit: 4
 #EOF
