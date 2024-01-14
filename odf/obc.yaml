@@ -1,0 +1,17 @@
+---
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  labels:
+    app: noobaa
+    bucket-provisioner: openshift-storage.noobaa.io-obc
+    noobaa-domain: openshift-storage.noobaa.io
+  name: tempo-bucket
+  namespace: tracing-system
+spec:
+  additionalConfig:
+    bucketclass: noobaa-default-bucket-class
+  #bucketName: tempo-bucket-ff940b6d-c236-40bb-85db-25f0a24ae276
+  generateBucketName: tempo-bucket
+  objectBucketName: obc-tracing-system-tempo-bucket
+  storageClassName: openshift-storage.noobaa.io
