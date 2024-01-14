@@ -27,14 +27,10 @@ Tested on OpenShift 4.14
       2. NameSpace: Bookinfo
       3. Type: Deployment
 
-## opentelemetry demo
+## Demo for opentelemetry 
 1.  Run demo.sh in opentelemetry folder
 
-
-## GitOps
-1. Manifests to install GitOps operator
-
-## Tempo
+## Demo for  Tempo
 1. Make sure ODF is operator is installed properly. We need to use s3 storage
 2. All files are in Tempo folder
 3. Deploy tempo operator yaml
@@ -44,7 +40,12 @@ Tested on OpenShift 4.14
 7. Deploy tempo Job yaml to create traces
    1. View Traces in Jaeger dashboard provided by Tempo
 
+## Demo for ODF
 
-# Known Issues
+# Future work
+### GitOps
+1. Manifests to install GitOps operator
+
+### Known Issues
 1. istio-ServiceMeshMember.yaml manifest gives errors when deployed using gitops.
    1. Permissions need to be fixed.
