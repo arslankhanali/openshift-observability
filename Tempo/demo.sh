@@ -1,11 +1,12 @@
 oc create -f namespace.yaml
 
 oc create -f operator.yaml
+sleep 1m
 
 oc create -f obc.yaml
 
-./tempo-createsecret.sh
+./createsecret.sh
 
 oc create -f tempoStack.yaml
 
-oc create -f tempo-job.yaml
+#oc create -f tempo-job.yaml
