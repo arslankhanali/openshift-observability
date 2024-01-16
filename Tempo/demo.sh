@@ -1,7 +1,6 @@
 oc create -f namespace.yaml
 
 oc create -f operator.yaml
-sleep 1m
 
 oc create -f obc.yaml
 
@@ -9,4 +8,5 @@ oc create -f obc.yaml
 
 oc create -f tempoStack.yaml
 
+oc create -f route.yaml
 #oc create -f tempo-job.yaml

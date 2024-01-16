@@ -5,6 +5,7 @@ Tested on OpenShift 4.14
 
 ## Demo for service mesh
 #### Distributed Tracing
+![](images/istio.png)
 1. All required manifests are in servicemesh folder
 2. Jaeger and Kali are deployed as part of Service Mesh
 3. Control Plane(Istio, Kiali, Jaeger) is in bookinfo-mesh namespace 
@@ -27,25 +28,44 @@ Tested on OpenShift 4.14
       2. NameSpace: Bookinfo
       3. Type: Deployment
 
-## Demo for opentelemetry 
-1.  Run demo.sh in opentelemetry folder
+# Edge/Hub demo for RH1 - Using Otel and Tempo
+Demo Application is made up of several microservices writtern in various languages, using differint protocols.
+![](images/demo-app.png)
+### For single cluster scenerio
+Overview
+![If running on 1 cluster](images/pic22.png)
+Detailed
+![If running on 1 cluster](images/demo.png)
+### For Hub/edge scenerio
+Otel will be on edge and Temp of Hub
+![If running on 2 clusters](images/pic1.png)
+## Demo for opentelemetry
+1.  Login to edge openshift cluster
+2.  Go to opentelemetry folder
+3.  my-values-file.yaml
+       1. Opentelemetry Collector can be set here
+       2. I have set exporter as 
+          1. tempo in hub cluster 
+          2. jaeger that is deployed as part of demo app
+          3. local tempo, (commented out)
+ 4. Run ./demo.sh
+    1. Namespace can be changed. default is opentelemetry-demo
+    2. Demo application that is instrumented to emit telemetry will be deployed
+    3. it creates and set service account scc, it is neccessary for Openshift
+    4. Also patches grafana deployment to remove securityContext, it is neccessary for Openshift
+    5. If you change `my-values-file.yaml` then you can update helm deployment by running `helm upgrade my-otel-demo open-telemetry/opentelemetry-demo --values my-values-file.yaml`
 
 ## Demo for  Tempo
+In our case Otel will send traces to Distributer and our query Frontend is Jauger UI
+![](images/tempo.png)
 1. Make sure ODF is operator is installed properly. We need to use s3 storage
-2. All files are in Tempo folder
-3. Deploy tempo operator yaml
-4. Deploy ObjectBucketClaim yaml
-5. Run tempo-createsecret bash script
-6. Deploy tempoStack yaml
-7. Deploy tempo Job yaml to create traces
-   1. View Traces in Jaeger dashboard provided by Tempo
-
-## Demo for ODF
-
-# Future work
-### GitOps
-1. Manifests to install GitOps operator
-
-### Known Issues
-1. istio-ServiceMeshMember.yaml manifest gives errors when deployed using gitops.
-   1. Permissions need to be fixed.
+2. Go to `tempo` folder
+3. Login to hub cluster
+4. Run demo.sh explanation
+   1. Creates namespace `tracing-system`
+   2. Deploy tempo operator
+   3. Creates ObjectBucketClaim
+   4. Creates `s3-secret` needed for TempStack
+   5. Creates TempoStack
+   6. Creates route so edge can send traces to it.
+5. View Traces in Jaeger dashboard provided by Tempo

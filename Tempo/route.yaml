@@ -1,0 +1,19 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    openshift.io/host.generated: "true"
+  labels:
+    app.kubernetes.io/component: distributor
+    app.kubernetes.io/instance: tempostack
+    app.kubernetes.io/managed-by: tempo-operator
+    app.kubernetes.io/name: tempo
+  name: otlphttp
+  namespace: tracing-system
+spec:
+  port:
+    targetPort: otlp-http
+  to:
+    kind: Service
+    name: tempo-tempostack-distributor
+  wildcardPolicy: None

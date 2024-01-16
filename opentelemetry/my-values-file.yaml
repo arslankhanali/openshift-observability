@@ -1,0 +1,25 @@
+# https://github.com/open-telemetry/opentelemetry-helm-charts/blob/main/charts/opentelemetry-demo/values.yamlopentelemetry-collector:
+opentelemetry-collector:
+  config:
+    exporters:
+      # 1 export to jaeger running as part of otel demo
+      otlp/demojaeger:
+        endpoint: '{{ include "otel-demo.name" . }}-jaeger-collector:4317'
+        tls:
+          insecure: true
+      # 2 export to temp running on another Openshift Cluster
+      otlphttp/hub:
+        endpoint: http://otlphttp-tracing-system.apps.cluster-tfmtk.dynamic.redhatworkshops.io
+        tls:
+          insecure: true
+      # 3 export to tempo running on the same cluster
+      # otlp/local:
+      #   endpoint: tempo-tempostack-distributor.tracing-system.svc.cluster.local:4317
+      #   tls:
+      #     insecure: true
+
+    service:
+      pipelines:
+        traces:
+          exporters: [otlp/demojaeger, otlphttp/hub, debug, spanmetrics]
+          # exporters: [otlp/demojaeger, otlp/local, otlphttp/hub, debug, spanmetrics]

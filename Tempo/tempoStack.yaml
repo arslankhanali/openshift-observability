@@ -8,8 +8,8 @@ spec:
   resources:
     total:
       limits:
-        cpu: 2000m
-        memory: 2Gi
+        cpu: 8000m
+        memory: 8Gi
   template:
     queryFrontend:
       jaegerQuery:
@@ -27,7 +27,7 @@ spec:
     global:
       ingestion:
         strategy: global
-        limit_bytes: 15000000
+        limit_bytes: 1000000000
 
 
 # AWS_ACCESS_KEY_ID=$(oc get secret tempo-bucket -n tracing-system -o json | jq -r '.data.AWS_ACCESS_KEY_ID' | base64 -d)
