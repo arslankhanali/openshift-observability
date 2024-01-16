@@ -6,12 +6,12 @@
 Demo Application is made up of several microservices writtern in various languages, using differint protocols.
 ![](images/demo-app.png)
 ### For single cluster scenerio
-Overview
+Overview  
 ![If running on 1 cluster](images/pic2.png)
-Detailed
+Detailed  
 ![If running on 1 cluster](images/demo.png)
 ### For Hub/edge scenerio
-Otel will be on edge and Temp of Hub
+Otel will be on edge and Temp of Hub  
 ![If running on 2 clusters](images/pic11.png)
 ## Demo for opentelemetry
 1.  Login to edge openshift cluster
@@ -68,3 +68,9 @@ In our case Otel will send traces to Distributer and our query Frontend is Jauge
       1. Dashboard: Kubernetes/Conpute Resource/Namespace (Workloads)
       2. NameSpace: Bookinfo
       3. Type: Deployment
+
+
+> References  
+> https://opentelemetry.io/docs/demo/architecture/
+> https://grafana.com/docs/tempo/latest/operations/architecture/
+> 
